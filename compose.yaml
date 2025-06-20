@@ -2,17 +2,28 @@ services:
   frontend:
     build:
       context: ./frontend
-
+    develop:
+      watch:
+        - path: ./frontend
+          action: sync
+          target: /app
+        - path: ./frontend/requirements.txt
+          action: rebuild
     ports:
     - 8501:8501
     restart: always
-    # volumes:
-    #   - .:/app
 
   backend:
     build:
       context: ./backend
       target: dev
+    develop:
+      watch:
+        - path: ./backend/src
+          action: sync
+          target: /usr/src/app/src
+        - path: ./backend/package.json
+          action: rebuild
     ports:
     - 3000:3000
     restart: always
