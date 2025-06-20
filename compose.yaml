@@ -4,8 +4,8 @@ services:
     ports:
       8501:8501
     restart: always
-    volumes:
-      - .:/app
+    # volumes:
+    #   - .:/app
 
   backend:
     build: ./backend/Dockerfile
