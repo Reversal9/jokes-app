@@ -11,9 +11,11 @@ RUN apt-get update && apt-get install -y \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/streamlit/streamlit-example.git .
+COPY requirements.txt .
 
 RUN pip3 install -r requirements.txt
+
+COPY . .
 
 EXPOSE 8501
 

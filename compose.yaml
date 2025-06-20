@@ -1,16 +1,16 @@
 services:
   frontend:
-    build: ./frontend/Dockerfile
+    build: ./frontend
     ports:
-      8501:8501
+    - 8501:8501
     restart: always
     # volumes:
     #   - .:/app
 
   backend:
-    build: ./backend/Dockerfile
+    build: ./backend
     ports:
-      5000:5000
+    - 5000:5000
     restart: always
 
   postgres:
@@ -22,4 +22,4 @@ services:
       - pg-data:/var/lib/postgresql/data
 
 volumes:
-  - pg-data:
+  pg-data:
