@@ -17,7 +17,7 @@ RUN npm install -g nodemon
 
 EXPOSE 3000
 
-CMD ["nodemon", "index.js"]
+CMD ["nodemon", "src/index.js"]
 
 # ---------- Production stage ----------
 FROM base AS prod
@@ -31,4 +31,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["node", "index.js"]
+CMD ["node", "src/index.js"]

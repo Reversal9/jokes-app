@@ -1,6 +1,8 @@
 services:
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+
     ports:
     - 8501:8501
     restart: always
@@ -8,9 +10,11 @@ services:
     #   - .:/app
 
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      target: dev
     ports:
-    - 5000:5000
+    - 3000:3000
     restart: always
 
   postgres:
