@@ -6,16 +6,36 @@ app.get('/', (req, res) => {
   res.send('Hello!')
 })
 
-const url = 'https://sv443.net/jokeapi/v2/joke/'
+const url = 'https://sv443.net/jokeapi/v2/joke/Any'
 
-app.get('/joke', await(req, res) => {
+const getJoke = async () => {
   const response = await fetch(url)
 
-  const data = await response.json()
+  let data = await response.json()
+
+  if (data.hasOwnProperty('joke')) {
+    data = {
+      type: 'joke',
+      joke: data.joke
+    }
+  } else {
+    data = {
+      type: 'setup',
+      setup: data.setup,
+      delivery: data.delivery
+    }
+  }
+
+  return data
+}
+
+app.get('/joke', async (req, res) => {
+
+  const data = await getJoke()
 
   res.send({
     statusCode: 200,
-    body: data.data
+    body: data
   })
 })
 
