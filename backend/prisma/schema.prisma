@@ -17,6 +17,7 @@ datasource db {
 model Joke {
   id Int @id @default(autoincrement())
   timestamp DateTime @unique
+  type String
   joke String?
   setup String?
   delivery String?

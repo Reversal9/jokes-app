@@ -10,7 +10,7 @@ services:
         - path: ./frontend/requirements.txt
           action: rebuild
     ports:
-    - 8501:8501
+      - 8501:8501
     restart: always
 
   backend:
@@ -25,12 +25,14 @@ services:
         - path: ./backend/package.json
           action: rebuild
     ports:
-    - 3000:3000
+      - 3000:3000
     restart: always
 
   postgres:
     image: postgres
     restart: always
+    ports:
+      - 5433:5433
     environment:
       POSTGRES_PASSWORD: example
     volumes:

@@ -1,4 +1,7 @@
 const express = require('express')
+const { PrismaClient } = require('../generated/prisma/client')
+
+const prisma = new PrismaClient()
 const app = express()
 const port = 3000
 
@@ -37,6 +40,40 @@ app.get('/joke', async (req, res) => {
     statusCode: 200,
     body: data
   })
+})
+
+app.post('/log', async (req, res) => {
+  // try {
+  const joke = await getJoke()
+
+  let addedJoke
+
+  if (joke.hasOwnProperty('joke')) {
+    addedJoke = await prisma.joke.create({
+      data: {
+        type: 'joke',
+        joke: joke.joke,
+        timestamp: new Date()
+      }
+    })
+  } else {
+    addedJoke = await prisma.joke.create({
+      data: {
+        type: 'setup',
+        setup: joke.setup,
+        delivery: joke.delivery,
+        timestamp: new Date()
+      }
+    })
+  }
+
+  res.send({
+    statusCode: 200,
+    body: addedJoke
+  })
+  // } catch (err) {
+  // res.send(err)
+  // }
 })
 
 app.listen(port, () => {
