@@ -13,3 +13,11 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Joke {
+  id Int @id @default(autoincrement())
+  timestamp DateTime @unique
+  joke String?
+  setup String?
+  delivery String?
+}
